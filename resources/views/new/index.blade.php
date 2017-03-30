@@ -4,7 +4,14 @@
         $currentUser = \Illuminate\Support\Facades\Auth::user();
     @endphp
     <div id="festivals" class="content-path row">
-        <div class="body col-xs-8 col-xs-offset-2">
+        <div class="body col-xs-10 col-xs-offset-1">
+            @if($currentUser && $currentUser->can('create-new'))
+                <div class="row form-group">
+                    <div class="col-xs-12 text-right">
+                        <a class="btn btn-xs btn-success" href="/new/edit">Создать новую новость</a>
+                    </div>
+                </div>
+            @endif
             @forelse($news as $new)
                 <div class="row">
                     <div class="col-xs-3">
@@ -29,13 +36,6 @@
                     </div>
                 </div>
             @empty
-                @if($currentUser && $currentUser->can('create-new'))
-                    <div class="row">
-                        <div class="col-xs-12 text-right">
-                            <a class="btn btn-xs btn-success" href="/new/edit">Создать новую новость</a>
-                        </div>
-                    </div>
-                @endif
                 <div class="h2 text-center">Новостей еще не создано!</div>
             @endforelse
         </div>
@@ -49,7 +49,7 @@
                     type: 'delete',
                     data: {'_token': $(token).val()},
                     success: function () {
-                        location.reload();
+                        location.href = 'new';
                     }
                 });
                 e.preventDefault();

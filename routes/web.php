@@ -27,11 +27,14 @@ Route::group(['middleware' => 'auth'], function() {
 Route::get('/new/{id}', 'NewController@view');
 
 Route::get('/festival', 'FestivalController@index');
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('/festival/edit', 'FestivalController@createForm');
+	Route::get('/festival/edit/{id}', 'FestivalController@createForm');
+	Route::post('/festival', 'FestivalController@create');
+	Route::post('/festival/{id}', 'FestivalController@edit');
+	Route::delete('/festival/{id}', 'FestivalController@delete');
+});
 Route::get('/festival/{id}', 'FestivalController@view');
-Route::post('/festival', 'FestivalController@edit');
-Route::post('/festival/{id}', 'FestivalController@create');
-Route::delete('/festival/{id}', 'FestivalController@delete');
-Route::get('/festival/create', 'FestivalController@createForm');
 
 Route::get('/collective', 'CollectiveController@index');
 Route::get('/collective/{id}', 'CollectiveController@view');

@@ -2,19 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Festival extends Model
+class Festival extends AbstractModel
 {
-	public static function GetList($filters = array(), $count = 10)
+
+	public static function GetEntity()
 	{
-		$festivals = self::all();
-		foreach ($filters as $key => $filter)
-		{
-			$festivals = $festivals->where($key, $filter);
-		}
-		$festivals->take($count);
-		return $festivals;
+		return Festival::class;
 	}
 
 	/**
