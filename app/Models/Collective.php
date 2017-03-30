@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Collective extends Model
+class Collective extends AbstractModel
 {
+	public static function GetEntity()
+	{
+		return self::class;
+	}
 
+	/**
+	 * The table associated with the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'collectives';
 }

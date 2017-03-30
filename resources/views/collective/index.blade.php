@@ -3,45 +3,43 @@
     @php
         $currentUser = \Illuminate\Support\Facades\Auth::user();
     @endphp
-    <div id="festivals" class="content-path row">
+    <div id="collectives" class="content-path row">
         <div class="body col-xs-10 col-xs-offset-1">
-            @if($currentUser && $currentUser->can('create-festival'))
-                <div class="row form-group">
-                    <div class="col-xs-12 text-right">
-                        <a class="btn btn-xs btn-success" href="/festival/edit">Создать новый фестиваль</a>
-                    </div>
+            <div class="row form-group">
+                <div class="col-xs-12 text-right">
+                    <a class="btn btn-xs btn-success" href="/collective/edit">Создать новый коллектив</a>
                 </div>
-            @endif
-            @forelse($festivals as $festival)
+            </div>
+            @forelse($collectives as $collective)
                     <div class="row form-group">
                         <div class="col-xs-3">
-                            <img class="img-responsive" src="{{$festival->picture}}">
+                            <img class="img-responsive" src="{{$collective->picture}}">
                         </div>
                         <div class="col-xs-9">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="/festival/{{ $festival->id }}">
-                                        <b>{{ $festival->name }}</b>
+                                    <a href="/collective/{{ $collective->id }}">
+                                        <b>{{ $collective->name }}</b>
                                     </a>
-                                    @if($currentUser && $currentUser->can('delete-festival'))
+                                    @if($currentUser && $currentUser->can('delete-collective'))
                                         {{csrf_field()}}
-                                        <a class="text-danger h6 delete" data-id="{{ $festival->id }}" href="#">(удалить)</a>
+                                        <a class="text-danger h6 delete" data-id="{{ $collective->id }}" href="#">(удалить)</a>
                                     @endif
                                 </div>
-                                <div class="col-xs-6 text-right">{{ $festival->updated_at }}</div>
+                                <div class="col-xs-6 text-right">{{ $collective->updated_at }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <small>{{ $festival->city }}: {{ $festival->date_begin }} - {{ $festival->date_end }}</small>
+                                    <small>{{ $collective->city }}, состав: {{ $collective->count }}</small>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12"><p>{{ $festival->description }}</p></div>
+                                <div class="col-xs-12"><p>{{ $collective->description }}</p></div>
                             </div>
                         </div>
                     </div>
             @empty
-                <div class="h2 text-center">Фествалей еще не зарегестрировано!</div>
+                <div class="h2 text-center">Коллективов еще не зарегестрировано!</div>
             @endforelse
         </div>
     </div>

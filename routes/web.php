@@ -37,15 +37,21 @@ Route::group(['middleware' => 'auth'], function() {
 Route::get('/festival/{id}', 'FestivalController@view');
 
 Route::get('/collective', 'CollectiveController@index');
-Route::get('/collective/{id}', 'CollectiveController@view');
-Route::delete('/collective/{id}', 'CollectiveController@delete');
+Route::get('/collective/edit', 'CollectiveController@createForm');
+Route::get('/collective/edit/{id}', 'CollectiveController@createForm');
 Route::post('/collective', 'CollectiveController@create');
-Route::post('/collective/{id}', 'CollectiveController@edit');
-Route::get('/collective/create', 'CollectiveController@createForm');
+Route::group(['middleware' => 'auth'], function() {
+	Route::post('/collective/{id}', 'CollectiveController@edit');
+	Route::delete('/collective/{id}', 'CollectiveController@delete');
+});
+Route::get('/collective/{id}', 'CollectiveController@view');
 
 Route::get('/user', 'UserController@index');
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('/user/edit', 'UserController@createForm');
+	Route::get('/user/edit/{id}', 'UserController@createForm');
+	Route::post('/user', 'UserController@create');
+	Route::post('/user/{id}', 'UserController@edit');
+	Route::delete('/user', 'UserController@delete');
+});
 Route::get('/user/{id}', 'UserController@view');
-Route::post('/user', 'UserController@create');
-Route::post('/user/{id}', 'UserController@edit');
-Route::delete('/user', 'UserController@delete');
-Route::get('/user/create', 'UserController@createForm');
