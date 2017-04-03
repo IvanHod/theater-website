@@ -49,7 +49,7 @@
                     type: 'delete',
                     data: {'_token': $(token).val()},
                     success: function () {
-                        location.href = 'new';
+                        location.href = '/new';
                     }
                 });
                 e.preventDefault();

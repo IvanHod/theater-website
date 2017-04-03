@@ -10,31 +10,31 @@
                     <a class="btn btn-xs btn-success" href="/collective/edit">Создать новый коллектив</a>
                 </div>
             </div>
-            @forelse($collectives as $collective)
+            @forelse($models as $model)
                     <div class="row form-group">
                         <div class="col-xs-3">
-                            <img class="img-responsive" src="{{$collective->picture}}">
+                            <img class="img-responsive" src="{{$model->picture}}">
                         </div>
                         <div class="col-xs-9">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="/collective/{{ $collective->id }}">
-                                        <b>{{ $collective->name }}</b>
+                                    <a href="/collective/{{ $model->id }}">
+                                        <b>{{ $model->name }}</b>
                                     </a>
-                                    @if($currentUser && $currentUser->can('delete-collective'))
+                                    @if($currentUser && $currentUser->isEditCollective($model->id))
                                         {{csrf_field()}}
-                                        <a class="text-danger h6 delete" data-id="{{ $collective->id }}" href="#">(удалить)</a>
+                                        <a class="text-danger h6 delete" data-id="{{ $model->id }}" href="#">(удалить)</a>
                                     @endif
                                 </div>
-                                <div class="col-xs-6 text-right">{{ $collective->updated_at }}</div>
+                                <div class="col-xs-6 text-right">{{ $model->updated_at }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <small>{{ $collective->city }}, состав: {{ $collective->count }}</small>
+                                    <small>{{ $model->city }}, состав: {{ $model->count }}</small>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12"><p>{{ $collective->description }}</p></div>
+                                <div class="col-xs-12"><p>{{ $model->description }}</p></div>
                             </div>
                         </div>
                     </div>
@@ -48,11 +48,11 @@
             $('.delete').click(function (e) {
                 var token = $('[name="_token"]');
                 $.ajax({
-                    url: '/festival/' + $(this).data('id'),
+                    url: '/collective/' + $(this).data('id'),
                     type: 'delete',
                     data: {'_token': $(token).val()},
                     success: function () {
-                        location.href = 'festival';
+                        location.href = 'collective';
                     }
                 });
                 e.preventDefault();

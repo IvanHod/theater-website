@@ -46,12 +46,16 @@ Route::group(['middleware' => 'auth'], function() {
 });
 Route::get('/collective/{id}', 'CollectiveController@view');
 
-Route::get('/user', 'UserController@index');
 Route::group(['middleware' => 'auth'], function() {
+	Route::get('/user', 'UserController@index');
 	Route::get('/user/edit', 'UserController@createForm');
 	Route::get('/user/edit/{id}', 'UserController@createForm');
 	Route::post('/user', 'UserController@create');
 	Route::post('/user/{id}', 'UserController@edit');
-	Route::delete('/user', 'UserController@delete');
+	Route::delete('/user/{id}', 'UserController@delete');
+	Route::get('/user/{id}', 'UserController@view');
 });
-Route::get('/user/{id}', 'UserController@view');
+
+Route::get('/about-us', function () {
+	return view('about_ud');
+});

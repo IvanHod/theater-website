@@ -18,3 +18,11 @@
 .content-path {
     margin-top: 25px;
 }
+
+#users .line-entity {
+    padding: 10px;
+}
+
+#users .line-entity:not(:last-child) {
+    border-bottom: 1px solid grey;
+}
