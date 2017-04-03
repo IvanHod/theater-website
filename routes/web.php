@@ -13,7 +13,9 @@
 
 Auth::routes();
 Route::get('/', function () {
-	return view('welcome');
+	$news = \App\Models\News::all();
+	$festivals = \App\Models\Festival::all();
+	return view('welcome', array('news' => $news, 'festivals' => $festivals));
 });
 
 Route::get('/new', 'NewController@index');

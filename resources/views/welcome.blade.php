@@ -1,18 +1,33 @@
 @extends('page')
 @section('body')
-    <div class="flex-center position-ref full-height">
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
-            </div>
-
-            <div class="links">
-                <a href="https://laravel.com/docs">Documentation</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="text-center">Новости</h1>
+            <table class="table">
+                <tbody>
+                @foreach($news as $new)
+                    <tr>
+                        <td><a href="/new/{{ $new->id }}">{{ $new->name }}</a></td>
+                        <td>{{ $new->description }}</td>
+                        <td>{{ $new->created_at }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h1 class="text-center">Фестивали</h1>
+            <table class="table">
+                <tbody>
+                @foreach($festivals as $festival)
+                    <tr>
+                        <td><a href="/festival/{{ $festival->id }}">{{ $festival->name }}</a></td>
+                        <td>{{ $festival->description }}</td>
+                        <td>{{ $festival->created_at }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @stop
