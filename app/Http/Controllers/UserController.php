@@ -36,7 +36,7 @@ class UserController extends Controller
 			$id = User::Create(array(
 				'name' => $request->name,
 				'email' => $request->email,
-				'password' => $request->password,
+				'password' => bcrypt($request->password),
 			));
 			$user = User::find(intval($id));
 			$role = Role::find(intval($request->role));
